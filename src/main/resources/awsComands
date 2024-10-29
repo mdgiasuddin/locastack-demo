@@ -1,5 +1,5 @@
 ## Run Docker container => container_name = 'localstack_new'
-docker exec -it localstack_new bash
+sudo docker exec -it localstack_new bash
 
 ## Create Dynamodb table => table_name = 'shipment', key = 'id'
 awslocal dynamodb create-table \
