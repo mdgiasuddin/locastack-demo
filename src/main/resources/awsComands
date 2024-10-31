@@ -13,5 +13,11 @@ awslocal dynamodb create-table \
 awslocal s3api create-bucket --bucket shipment-picture-bucket
 
 ## Create SQS queue => queue-name = 'shipment-sqs-queue'
-awslocal sqs create-queue --queue-name shipment-sqs-queue
+# awslocal sqs create-queue --queue-name shipment-sqs-queue
+
+aws --endpoint-url=http://localhost:4566 sqs create-queue --queue-name shipment-sqs-queue.fifo \
+     --attributes '{
+    "VisibilityTimeout": "20",
+    "FifoQueue": "true"
+}'
 
