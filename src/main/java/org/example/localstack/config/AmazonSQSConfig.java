@@ -10,7 +10,7 @@ import java.net.URI;
 
 @Configuration
 public class AmazonSQSConfig extends AWSClientConfig {
-    @Value("${aws.sqs.endpoint}")
+    @Value("${spring.cloud.aws.sqs.endpoint}")
     private String awsSqsEndPoint;
 
     @Bean

@@ -15,7 +15,7 @@ import java.net.URI;
 @Configuration
 public class DynamoDBConfig extends AWSClientConfig {
 
-    @Value("${aws.dynamodb.endpoint}")
+    @Value("${spring.cloud.aws.dynamodb.endpoint}")
     private String awsDynamoDBEndPoint;
 
     @Bean

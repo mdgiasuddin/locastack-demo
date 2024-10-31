@@ -11,11 +11,11 @@ import java.net.URI;
 @Configuration
 public class AmazonS3Config extends AWSClientConfig {
 
-    @Value("${aws.s3.endpoint}")
+    @Value("${spring.cloud.aws.s3.endpoint}")
     private String awsS3EndPoint;
 
     @Bean
-    public S3Client s3() {
+    public S3Client s3Client() {
         return S3Client.builder()
                 .region(Region.of(awsRegion))
                 .credentialsProvider(amazonAWSCredentialsProvider())

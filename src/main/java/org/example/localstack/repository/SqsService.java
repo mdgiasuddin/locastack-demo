@@ -26,10 +26,10 @@ public class SqsService {
 
     public void sendSqsMessage(Address address) {
         try {
-//            String queueUrl = getQueueUrl(shipmentQueueName);
-//            log.info("QueueUrl: {}", queueUrl);
+            String queueUrl = getQueueUrl(shipmentQueueName);
+            log.info("QueueUrl: {}", queueUrl);
             SendMessageRequest request = SendMessageRequest.builder()
-                    .queueUrl("http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/shipment-sqs-queue")
+                    .queueUrl(queueUrl)
                     .messageGroupId("Shipment")
                     .messageBody(objectMapper.writeValueAsString(address))
                     .messageDeduplicationId(UUID.randomUUID().toString())

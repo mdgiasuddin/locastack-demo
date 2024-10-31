@@ -7,13 +7,13 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 
 public class AWSClientConfig {
 
-    @Value("${aws.credentials.access-key}")
+    @Value("${spring.cloud.aws.credentials.access-key}")
     protected String awsAccessKey;
 
-    @Value("${aws.credentials.secret-key}")
+    @Value("${spring.cloud.aws.credentials.secret-key}")
     protected String awsSecretKey;
 
-    @Value("${aws.region}")
+    @Value("${spring.cloud.aws.region.static}")
     protected String awsRegion;
 
     protected AwsCredentialsProvider amazonAWSCredentialsProvider() {

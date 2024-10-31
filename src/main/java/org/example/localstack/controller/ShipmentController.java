@@ -33,8 +33,7 @@ public class ShipmentController {
         return shipmentService.getAllShipments();
     }
 
-    @GetMapping(
-            path = "{shipmentId}/image/download", produces = IMAGE_JPEG_VALUE)
+    @GetMapping(path = "{shipmentId}/image/download", produces = IMAGE_JPEG_VALUE)
     public byte[] downloadShipmentImage(@PathVariable("shipmentId") String shipmentId) {
         return shipmentService.downloadShipmentImage(shipmentId);
     }
