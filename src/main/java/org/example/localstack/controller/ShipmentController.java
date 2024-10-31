@@ -1,6 +1,7 @@
 package org.example.localstack.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.localstack.entity.Shipment;
 import org.example.localstack.service.ShipmentService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
+@Slf4j
 @RestController
 @RequestMapping("api/shipment")
 @RequiredArgsConstructor
@@ -58,6 +60,13 @@ public class ShipmentController {
     )
     public Shipment saveUpdateShipment(@RequestBody Shipment shipment) {
         return shipmentService.saveShipment(shipment);
+    }
+
+    @GetMapping("/sqs-message")
+    public String sendSqsMessage() {
+        log.info("sqs-message");
+        shipmentService.sendSqsMessage();
+        return "Message sent successfully!";
     }
 
 }

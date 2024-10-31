@@ -27,7 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class S3StorageService {
 
-    private final S3Client s3;
+    private final S3Client s3Client;
     private final BucketName bucketName;
 
     public void save(String path, String fileName,
@@ -40,7 +40,7 @@ public class S3StorageService {
                 .contentLength(multipartFile.getSize())
                 .build();
 
-        s3.putObject(putObjectRequest,
+        s3Client.putObject(putObjectRequest,
                 RequestBody.fromFile(FileUtil.convertMultipartFileToFile(multipartFile)));
 
     }
@@ -52,7 +52,7 @@ public class S3StorageService {
                 .build();
         byte[] object = new byte[0];
         try {
-            object = s3.getObject(getObjectRequest).readAllBytes();
+            object = s3Client.getObject(getObjectRequest).readAllBytes();
         } catch (NoSuchKeyException noSuchKeyException) {
             log.warn("Could not find object: {}", noSuchKeyException.getMessage());
         }
@@ -61,7 +61,7 @@ public class S3StorageService {
 
     public void delete(String folderPrefix) {
         List<ObjectIdentifier> keysToDelete = new ArrayList<>();
-        s3.listObjectsV2Paginator(
+        s3Client.listObjectsV2Paginator(
                         builder -> builder.bucket(bucketName.getShipmentPictureBucket())
                                 .prefix(folderPrefix + "/"))
                 .contents().stream()
@@ -74,7 +74,7 @@ public class S3StorageService {
                 .build();
 
         try {
-            DeleteObjectsResponse response = s3.deleteObjects(deleteRequest);
+            DeleteObjectsResponse response = s3Client.deleteObjects(deleteRequest);
             List<S3Error> errors = response.errors();
             if (!errors.isEmpty()) {
                 log.error("Errors occurred while deleting objects:");

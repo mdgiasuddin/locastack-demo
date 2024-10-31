@@ -1,9 +1,11 @@
 package org.example.localstack.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.localstack.entity.Address;
 import org.example.localstack.entity.Shipment;
 import org.example.localstack.repository.DynamoDBService;
 import org.example.localstack.repository.S3StorageService;
+import org.example.localstack.repository.SqsService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +23,7 @@ public class ShipmentService {
 
     private final DynamoDBService dynamoDBService;
     private final S3StorageService s3StorageService;
+    private final SqsService sqsService;
 
     public List<Shipment> getAllShipments() {
         return dynamoDBService.getAllShipments();
@@ -96,5 +99,15 @@ public class ShipmentService {
 
     public void updateImageLink(String shipmentId, String imageLink) {
         dynamoDBService.updateImageLink(shipmentId, imageLink);
+    }
+
+    public void sendSqsMessage() {
+        sqsService.sendSqsMessage(new Address(
+                "Postal - 1",
+                "Street - 1",
+                "Number - 1",
+                "City - 1",
+                "Address - 1"
+        ));
     }
 }
