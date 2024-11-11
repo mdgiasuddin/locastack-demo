@@ -2,15 +2,15 @@ version: "3.8"
 
 services:
   localstack:
-    container_name: localstack_new
-    image: localstack/localstack
-    ports:
-      - "4566:4566"            # LocalStack Gateway
-      - "4510-4559:4510-4559"  # external services port range
+    image: 'localstack/localstack'
+    container_name: 'localstack'
+    restart: always
     environment:
-      # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
-      - DEBUG=${DEBUG:-0}
-      - SQS_ENDPOINT_STRATEGY=dynamic
+      - SERVICES=ssm,sqs,s3
+      - DEFAULT_REGION=ap-southeast-1
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    ports:
+      - '4566:4566'
     volumes:
-      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "${HOME}/localstack_volume:/var/lib/localstack"
