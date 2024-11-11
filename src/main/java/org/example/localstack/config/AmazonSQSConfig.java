@@ -1,5 +1,6 @@
 package org.example.localstack.config;
 
+import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,5 +21,10 @@ public class AmazonSQSConfig extends AWSClientConfig {
                 .credentialsProvider(amazonAWSCredentialsProvider())
                 .region(Region.of(awsRegion))
                 .build();
+    }
+
+    @Bean
+    public SqsTemplate sqsTemplate(SqsAsyncClient sqsClient) {
+        return SqsTemplate.builder().sqsAsyncClient(sqsClient).build();
     }
 }
