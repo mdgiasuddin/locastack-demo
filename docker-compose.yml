@@ -6,7 +6,7 @@ services:
     container_name: 'localstack'
     restart: always
     environment:
-      - SERVICES=ssm,sqs,s3
+      - SERVICES=sqs,s3,dynamodb
       - DEFAULT_REGION=ap-southeast-1
       - DEBUG=1
       - DATA_DIR=/tmp/localstack/data
